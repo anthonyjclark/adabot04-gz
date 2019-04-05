@@ -2,15 +2,7 @@
 <sdf version='1.6'>
   <model name='ugv'>
 
-
-  <!-- <plugin name="SkidSteerDrivePlugin" filename="libSkidSteerDrivePlugin.so">
-    <right_front>right_front</right_front>
-    <right_rear>right_rear</right_rear>
-    <left_front>left_front</left_front>
-    <left_rear>left_rear</left_rear>
-  </plugin> -->
-
-    <plugin name="model_push" filename="/Users/ajc/Documents/projects/adabot/adabot04-gz/controller/plugin/build/libcontroller_plugin.so"/>
+    <!-- <plugin name="controller" filename="libcontroller_plugin.so"/> -->
 
     <link name='chassis'>
 

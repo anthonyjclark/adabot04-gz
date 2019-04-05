@@ -1,7 +1,24 @@
 
-# Telling Gazebo about models
+# Running a world
 
-`ln -s $HOME/Documents/projects/adabot/adabot04-gz/models/ugv ~/.gazebo/models/`
+`gazebo --pause --verbose worlds/empty.world`
+
+`gazebo --verbose worlds/test_heightmap.world`
+
+# Building and running
+
+The following are just helper scripts. They are not necessary, but they serve as documentation.
+
+```bash
+# Go to directory and run
+./bulid.sh
+
+# Run the following if you make changes
+./make.sh
+
+# Running an executable
+./run.sh
+```
 
 # From Brew after `brew install gazebo10`
 
