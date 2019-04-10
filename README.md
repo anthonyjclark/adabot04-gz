@@ -5,8 +5,10 @@
 mkdir -p ~/projects
 cd ~/projects
 git clone https://github.com/anthonyjclark/adabot04-gz.git
-cd adabot04-gz
-. setup_env.bash 
+cd adabot04-gz/controller
+./build.sh
+cd ..
+. setup_env.bash
 ./run.sh
 ```
 
@@ -20,6 +22,7 @@ To view the camera output:
 # TODO
 
 - Create link for camera and tilt it towards the ground
+- Position cameras correctly (left and right of center)
 - Create textures for the labeling the terrain
 - Add wheel extensions
 - Convert camera output images to video ([tutorial](http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo))
@@ -86,3 +89,6 @@ with older versions of numpy, scipy and matplotlib), you may need to
 ensure that the brewed packages come earlier in Python's sys.path with:
   mkdir -p /Users/ajc/Library/Python/2.7/lib/python/site-packages
   echo 'import sys; sys.path.insert(1, "/usr/local/lib/python3.7/site-packages")' >> /Users/ajc/Library/Python/2.7/lib/python/site-packages/homebrew.pth
+
+
+git -c user.name='Anthony Clark' -c user.email='anthonyjclark@gmail.com' commit -am 
