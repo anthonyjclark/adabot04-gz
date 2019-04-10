@@ -16,35 +16,16 @@
         </geometry>
       </collision>
 
-
       <visual name="heightmap-visual">
         <geometry>
           <heightmap>
             <use_terrain_paging>false</use_terrain_paging>
 
             <texture>
-              <diffuse>file://media/materials/textures/dirt_diffusespecular.png</diffuse>
+              <diffuse>model://terrain/seamless_texture.png</diffuse>
               <normal>file://media/materials/textures/flat_normal.png</normal>
               <size>1</size>
             </texture>
-            <texture>
-              <diffuse>file://media/materials/textures/grass_diffusespecular.png</diffuse>
-              <normal>file://media/materials/textures/flat_normal.png</normal>
-              <size>1</size>
-            </texture>
-            <texture>
-              <diffuse>file://media/materials/textures/fungus_diffusespecular.png</diffuse>
-              <normal>file://media/materials/textures/flat_normal.png</normal>
-              <size>1</size>
-            </texture>
-            <blend>
-              <min_height>2</min_height>
-              <fade_dist>5</fade_dist>
-            </blend>
-            <blend>
-              <min_height>4</min_height>
-              <fade_dist>5</fade_dist>
-            </blend>
 
             <uri>model://terrain/terrain-heightmap.png</uri>
             <size>10 10 0.5</size>
@@ -52,11 +33,7 @@
 
           </heightmap>
         </geometry>
-        <!-- <material script='Gazebo/White'>
-          <emissive rgba='1.0 1.0 1.0 1.0'/>
-        </material> -->
       </visual>
-
 
     </link>
 
