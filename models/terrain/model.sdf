@@ -25,7 +25,7 @@
             <texture>
               <diffuse>model://terrain/terrain-texture.png</diffuse>
               <normal>file://media/materials/textures/flat_normal.png</normal>
-              <size>1</size>
+              <size>10</size>
             </texture>
 
             <!-- <texture>
