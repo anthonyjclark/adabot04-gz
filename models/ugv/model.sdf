@@ -16,7 +16,7 @@
             <path>/tmp/stereo_camera_left</path>
           </save>
           <horizontal_fov>1.047</horizontal_fov>
-          <pose>0 -0.05 0 0 0 0</pose>
+          <pose>0 0.05 0 0 0 0</pose>
           <image>
             <width>400</width>
             <height>400</height>
@@ -37,7 +37,7 @@
             <path>/tmp/stereo_camera_right</path>
           </save>
           <horizontal_fov>1.047</horizontal_fov>
-          <pose>0 0.05 0 0 0 0</pose>
+          <pose>0 -0.05 0 0 0 0</pose>
           <image>
             <width>400</width>
             <height>400</height>

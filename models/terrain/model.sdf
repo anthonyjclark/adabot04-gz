@@ -28,11 +28,13 @@
               <size>10</size>
             </texture>
 
-            <!-- <texture>
+            <!-- Prettier texture. You will need to delete the cache to see it.
+            <texture>
               <diffuse>file://media/materials/textures/dirt_diffusespecular.png</diffuse>
               <normal>file://media/materials/textures/flat_normal.png</normal>
               <size>1</size>
-            </texture> -->
+            </texture> 
+            -->
 
             <uri>model://terrain/terrain-heightmap.png</uri>
             <size>10 10 0.5</size>

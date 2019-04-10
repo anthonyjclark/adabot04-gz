@@ -22,8 +22,6 @@ To view the camera output:
 # TODO
 
 - Create link for camera and tilt it towards the ground
-- Position cameras correctly (left and right of center)
-- Create textures for the labeling the terrain
 - Add wheel extensions
 - Convert camera output images to video ([tutorial](http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo))
 - Running the simulation in headless mode ([tutorial](http://answers.gazebosim.org/question/14625/running-a-camera-sensor-headless/))
@@ -78,6 +76,10 @@ Gazebo caches the heightmap model. So, after making changes to `models/terrain/m
 ~~~bash
 rm -r ~/.gazebo/paging/terrain-heightmap/
 ~~~
+
+# Creating new terrains
+
+The terrain model directory (`./models/terrain`) contains the two files needed to create a heightmap-style terrain in Gazebo. `terrain-heighmap.png` is a grayscale image where the intensity of a pixel indicates the height, and `terrain-texture.png` is a texture that can be used to *label* the different terrain types. See `notebooks/create_texture.ipynb` for an example of how to create a texture (you an use similar techniques for creating the heightmap image).
 
 # From Brew after `brew install gazebo10`
 
