@@ -1,6 +1,8 @@
 
 # Running a world
 
+`. setup_env.bash`
+
 `gazebo --pause --verbose worlds/empty.world`
 
 `gazebo --verbose worlds/test_heightmap.world`
@@ -19,6 +21,11 @@ The following are just helper scripts. They are not necessary, but they serve as
 # Running an executable
 ./run.sh
 ```
+
+# Updating terrain model
+
+Need to clear cache
+~/.gazebo/paging/terrain-heightmap/
 
 # From Brew after `brew install gazebo10`
 

@@ -2,7 +2,7 @@
 <sdf version='1.6'>
   <model name='ugv'>
 
-    <!-- <plugin name="controller" filename="libcontroller_plugin.so"/> -->
+    <plugin name="controller" filename="libcontroller_plugin.so"/>
 
     <link name='chassis'>
 
@@ -498,7 +498,7 @@
         </surface>
       </collision>
     </link>
-    <joint name='right_front' type='revolute'>
+    <joint name='front_right_wheel_joint' type='revolute'>
       <parent>chassis</parent>
       <child>front_right_wheel</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
@@ -531,7 +531,7 @@
         </ode>
       </physics>
     </joint>
-    <joint name='left_rear' type='revolute'>
+    <joint name='back_left_wheel_joint' type='revolute'>
       <parent>chassis</parent>
       <child>back_left_wheel</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
@@ -564,7 +564,7 @@
         </ode>
       </physics>
     </joint>
-    <joint name='right_rear' type='revolute'>
+    <joint name='back_right_wheel_joint' type='revolute'>
       <parent>chassis</parent>
       <child>back_right_wheel</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
@@ -597,7 +597,7 @@
         </ode>
       </physics>
     </joint>
-    <joint name='left_front' type='revolute'>
+    <joint name='front_left_wheel_joint' type='revolute'>
       <parent>chassis</parent>
       <child>front_left_wheel</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
