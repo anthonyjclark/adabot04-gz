@@ -2,6 +2,9 @@
 
 git -c user.name='Anthony Clark' -c user.email='anthonyjclark@gmail.com' commit -am ""
 
+http://gazebosim.org/tutorials?tut=camera_save&cat=sensors
+
+
 
 # Running a world
 

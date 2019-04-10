@@ -1,2 +1,0 @@
-http://gazebosim.org/tutorials?tut=camera_save&cat=sensors
-
