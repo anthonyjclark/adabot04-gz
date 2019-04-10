@@ -1,9 +1,28 @@
 
 
+TODO:
+
+- Create link for camera and tilt it towards the ground
+- Create textures for the labeling the terrain
+
 git -c user.name='Anthony Clark' -c user.email='anthonyjclark@gmail.com' commit -am ""
 
-http://gazebosim.org/tutorials?tut=camera_save&cat=sensors
+http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo
+http://answers.gazebosim.org/question/14625/running-a-camera-sensor-headless/
 
+
+cd projects/adabot04-gz/
+. setup_env.bash 
+./run.sh
+
+starts paused
+
+Window->Topic Visualization (or ctrl-T)
+gazebo.msgs.Imagestamped->/gazebo/default/ugv/chassis/stereo_camera/images
+
+    <save enabled="false">
+
+watch ls -l stereo_camera_left
 
 
 # Running a world
