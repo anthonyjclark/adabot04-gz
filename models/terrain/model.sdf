@@ -23,10 +23,16 @@
             <use_terrain_paging>false</use_terrain_paging>
 
             <texture>
-              <diffuse>model://terrain/seamless_texture.png</diffuse>
+              <diffuse>model://terrain/terrain-texture.png</diffuse>
               <normal>file://media/materials/textures/flat_normal.png</normal>
               <size>1</size>
             </texture>
+
+            <!-- <texture>
+              <diffuse>file://media/materials/textures/dirt_diffusespecular.png</diffuse>
+              <normal>file://media/materials/textures/flat_normal.png</normal>
+              <size>1</size>
+            </texture> -->
 
             <uri>model://terrain/terrain-heightmap.png</uri>
             <size>10 10 0.5</size>
