@@ -21,6 +21,7 @@ To view the camera output:
 
 - Create link for camera and tilt it towards the ground
 - Create textures for the labeling the terrain
+- Add wheel extensions
 - Convert camera output images to video ([tutorial](http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo))
 - Running the simulation in headless mode ([tutorial](http://answers.gazebosim.org/question/14625/running-a-camera-sensor-headless/))
 
