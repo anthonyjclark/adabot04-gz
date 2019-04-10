@@ -1,4 +1,8 @@
 
+
+git -c user.name='Anthony Clark' -c user.email='anthonyjclark@gmail.com' commit -am ""
+
+
 # Running a world
 
 `. setup_env.bash`
