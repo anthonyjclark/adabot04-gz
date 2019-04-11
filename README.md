@@ -23,6 +23,7 @@ To view the camera output:
 
 - Create link for camera and tilt it towards the ground
 - Add wheel extensions
+- Move model plugin to model/ugv directory (after `erb`)
 - Convert camera output images to video ([tutorial](http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo))
 - Running the simulation in headless mode ([tutorial](http://answers.gazebosim.org/question/14625/running-a-camera-sensor-headless/))
 
@@ -80,6 +81,18 @@ rm -r ~/.gazebo/paging/terrain-heightmap/
 # Creating new terrains
 
 The terrain model directory (`./models/terrain`) contains the two files needed to create a heightmap-style terrain in Gazebo. `terrain-heighmap.png` is a grayscale image where the intensity of a pixel indicates the height, and `terrain-texture.png` is a texture that can be used to *label* the different terrain types. See `notebooks/create_texture.ipynb` for an example of how to create a texture (you an use similar techniques for creating the heightmap image).
+
+# Generating SDF from erb
+
+You can use an "embedded ruby template file" to create SDF models (see [this example](https://bitbucket.org/osrf/gazebo_tutorials/raw/kinematic_loop/kinematic_loop/four_bar_sdf/model.sdf.erb)).
+
+~~~bash
+# Run with default parameters
+erb model.sdf.erb > model.sdf
+
+# Run with set parameters
+erb var1=3 var2=4 model.sdf.erb > model.sdf
+~~~
 
 # From Brew after `brew install gazebo10`
 
