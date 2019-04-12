@@ -8,11 +8,15 @@ chassis_width = 0.24
 chassis_length = 0.2
 chassis_height = 0.04
 
+camera_size = 0.05
+camera_pitch = Math::PI/6
+camera_offset = chassis_height/2 + camera_size/2 + 0.08
+
 wheel_radius = 0.05
 
 wheel_leg_count = 3
 wheel_leg_radius = 0.005
-wheel_leg_extension = wheel_radius * 0.9
+wheel_leg_extension = wheel_radius * 0.5
 
 def box_inertia(x, y, z, density)
   box = {}
@@ -34,23 +38,30 @@ def sphere_inertia(r, density)
   sphere
 end
 
-# Use cylinder inertia instead of sphere?
-
-# All boxes
+# All simulated entities (links and joints)
 boxes = {}
+spheres = {}
+revolute_joints = {}
+fixed_joints = {}
+
+# Chassis
 boxes["chassis"] = box_inertia(chassis_length, chassis_width, chassis_height, density)
 boxes["chassis"][:pose] = "0 0 0 0 -0 0"
 
-# All spheres
-spheres = {}
-revolutes = {}
+# Camera
+boxes["camera"] = box_inertia(camera_size, camera_size, camera_size, density)
+boxes["camera"][:pose] = "0 0 #{camera_offset} 0 #{camera_pitch} 0"
+fixed_joints["camera-joint"] = { parent: "chassis", child: "camera" }
 
+# Wheels, wheel legs, and all wheel-related joints
 wheel_names = ["front-right", "front-left", "back-right", "back-left"]
 
 wheel_names.each do |name|
 
   # Link
   wheel_name = name + "-wheel"
+
+  # Use cylinder inertia instead of sphere?
   spheres[wheel_name] = sphere_inertia(wheel_radius, density)
   fb = name.include?("front") ? 1 : - 1
   lr = name.include?("left") ? 1 : -1
@@ -62,9 +73,7 @@ wheel_names.each do |name|
 
   # Joint
   joint_name = wheel_name + "-joint"
-  revolutes[joint_name] = {}
-  revolutes[joint_name][:parent] = "chassis"
-  revolutes[joint_name][:child] = wheel_name
+  revolute_joints[joint_name] = { parent: "chassis", child: wheel_name }
 
   # Wheel legs
   (1..wheel_leg_count).each do |leg|
@@ -73,14 +82,16 @@ wheel_names.each do |name|
     leg_name = wheel_name + "-leg#{leg}"
     spheres[leg_name] = sphere_inertia(wheel_leg_radius, density)
 
-    angle = leg*wheel_leg_count/(2*Math::PI)
+    angle = leg.to_f/wheel_leg_count*2*Math::PI
     leg_x = wheel_x + (wheel_radius + wheel_leg_extension)*Math::cos(angle)
     leg_y = wheel_y
-    leg_z = wheel_leg_extension*Math::cos(angle)
+    leg_z = (wheel_radius + wheel_leg_extension)*Math::sin(angle)
 
     spheres[leg_name][:pose] = "#{leg_x} #{leg_y} #{leg_z} 0 -0 0"
 
     # Joint (fixed)
+    leg_joint_name = leg_name + "-joint"
+    fixed_joints[leg_joint_name] = { parent: wheel_name, child: leg_name }
   end
 end
 
@@ -89,6 +100,8 @@ end
 
 <sdf version='1.6'>
   <model name='ugv-rb'>
+
+    <plugin name="controller" filename="libcontroller_plugin.so"/>
 
 
 <%
@@ -135,6 +148,57 @@ boxes.keys.each do |k|
           </box>
         </geometry>
       </collision>
+
+<% if k == "camera" %>
+      <sensor name='stereo_camera' type='multicamera'>
+
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+
+        <camera name="left">
+          <save enabled="false">
+            <path>/tmp/stereo_camera_left</path>
+          </save>
+          <horizontal_fov>1.047</horizontal_fov>
+          <pose>0 0.05 0 0 0 0</pose>
+          <image>
+            <width>400</width>
+            <height>400</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <!-- <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise> -->
+        </camera>
+
+        <camera name="right">
+          <save enabled="false">
+            <path>/tmp/stereo_camera_right</path>
+          </save>
+          <horizontal_fov>1.047</horizontal_fov>
+          <pose>0 -0.05 0 0 0 0</pose>
+          <image>
+            <width>400</width>
+            <height>400</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <!-- <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise> -->
+        </camera>
+
+      </sensor>
+<% end %>
 
     </link>
 
@@ -194,9 +258,10 @@ spheres.keys.each do |k|
 # End the sphere iteration
 end
 
-revolutes.keys.each do |k|
-  joint = revolutes[k]
+revolute_joints.keys.each do |k|
+  joint = revolute_joints[k]
 %>
+
 
     <joint name='<%= k %>' type='revolute'>
       <parent><%= joint[:parent] %></parent>
@@ -209,7 +274,22 @@ revolutes.keys.each do |k|
 
 
 <%
-# End the joint iteration
+# End the revolute_joints iteration
+end
+
+fixed_joints.keys.each do |k|
+  joint = fixed_joints[k]
+%>
+
+
+    <joint name='<%= k %>' type='fixed'>
+      <parent><%= joint[:parent] %></parent>
+      <child><%= joint[:child] %></child>
+    </joint>
+
+
+<%
+# End the fixed_joints iteration
 end
 %>
 

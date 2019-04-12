@@ -1,7 +1,7 @@
 #
 # Source this file to export necessary environment variables
 # run with
-#    . setup_env.bash
+#    source setup_env.bash
 #
 
 # Path to the controller plugin library (must be built first)

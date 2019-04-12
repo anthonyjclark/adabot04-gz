@@ -22,8 +22,8 @@ To view the camera output:
 # TODO
 
 - Create link for camera and tilt it towards the ground
-- Add wheel extensions
 - Move model plugin to model/ugv directory (after `erb`)
+- Switch from fixed joints to multiple collisions/visuals for a single link?
 - Convert camera output images to video ([tutorial](http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo))
 - Running the simulation in headless mode ([tutorial](http://answers.gazebosim.org/question/14625/running-a-camera-sensor-headless/))
 
@@ -90,6 +90,9 @@ You can use an "embedded ruby template file" to create SDF models (see [this exa
 # Run with default parameters
 erb model.sdf.erb > model.sdf
 
+# Check if sdf file is valid
+gz sdf --check model.sdf
+
 # Run with set parameters
 erb var1=3 var2=4 model.sdf.erb > model.sdf
 ~~~
@@ -105,5 +108,4 @@ ensure that the brewed packages come earlier in Python's sys.path with:
   mkdir -p /Users/ajc/Library/Python/2.7/lib/python/site-packages
   echo 'import sys; sys.path.insert(1, "/usr/local/lib/python3.7/site-packages")' >> /Users/ajc/Library/Python/2.7/lib/python/site-packages/homebrew.pth
 
-
-git -c user.name='Anthony Clark' -c user.email='anthonyjclark@gmail.com' commit -am 
+https://www.desmos.com/calculator/n8kwtwfrce

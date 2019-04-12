@@ -15,10 +15,10 @@ public:
 
     // Get a pointer to each wheel joint
     // TODO: joint names should be parameterized
-    this->left_front = this->model->GetJoint("front_left_wheel_joint");
-    this->left_back = this->model->GetJoint("back_left_wheel_joint");
-    this->right_front = this->model->GetJoint("front_right_wheel_joint");
-    this->right_back = this->model->GetJoint("back_right_wheel_joint");
+    this->left_front = this->model->GetJoint("front-left-wheel-joint");
+    this->left_back = this->model->GetJoint("back-left-wheel-joint");
+    this->right_front = this->model->GetJoint("front-right-wheel-joint");
+    this->right_back = this->model->GetJoint("back-right-wheel-joint");
 
     // TODO: check for invalid joints (null pointers)
 
