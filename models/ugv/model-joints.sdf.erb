@@ -8,22 +8,13 @@ chassis_width = 0.24
 chassis_length = 0.2
 chassis_height = 0.04
 
-camera_width = 0.1
-camera_length = 0.03
-camera_height = 0.03
-
-camera_offset_z = chassis_height/2 + camera_height/2 + 0.08
-camera_offset_x = chassis_length/2 - camera_length
-
+camera_size = 0.05
 camera_pitch = Math::PI/6
-camera_eye_offset = camera_width/2
-
-camera_on = "false"
-camera_path_prefix = "/tmp/stereo_camera_"
+camera_offset = chassis_height/2 + camera_size/2 + 0.08
 
 wheel_radius = 0.05
 
-wheel_leg_count = 3
+wheel_leg_count = 5
 wheel_leg_radius = 0.005
 wheel_leg_extension = wheel_radius * 0.5
 
@@ -48,21 +39,19 @@ def sphere_inertia(r, density)
 end
 
 # All simulated entities (links and joints)
-chassis = {}
-wheels = {}
+boxes = {}
+spheres = {}
 revolute_joints = {}
+fixed_joints = {}
 
 # Chassis
-chassis_name = "chassis"
-chassis = box_inertia(chassis_length, chassis_width, chassis_height, density)
+boxes["chassis"] = box_inertia(chassis_length, chassis_width, chassis_height, density)
+boxes["chassis"][:pose] = "0 0 0 0 -0 0"
 
 # Camera
-camera = {
-  pose: "#{camera_offset_x} 0 #{camera_offset_z} 0 #{camera_pitch} 0",
-  size: "#{camera_length} #{camera_width} #{camera_height}",
-  poll_pose: "#{camera_offset_x} 0 #{camera_offset_z/2} 0 -0 0",
-  poll_size: "#{camera_length/1.4} #{camera_length/1.4} #{camera_offset_z}"
-}
+boxes["camera"] = box_inertia(camera_size, camera_size, camera_size, density)
+boxes["camera"][:pose] = "0 0 #{camera_offset} 0 #{camera_pitch} 0"
+fixed_joints["camera-joint"] = { parent: "chassis", child: "camera" }
 
 # Wheels, wheel legs, and all wheel-related joints
 wheel_names = ["front-right", "front-left", "back-right", "back-left"]
@@ -72,34 +61,37 @@ wheel_names.each do |name|
   # Link
   wheel_name = name + "-wheel"
 
-  # TODO: Use cylinder inertia instead of sphere?
-  wheels[wheel_name] = sphere_inertia(wheel_radius, density)
+  # Use cylinder inertia instead of sphere?
+  spheres[wheel_name] = sphere_inertia(wheel_radius, density)
   fb = name.include?("front") ? 1 : - 1
   lr = name.include?("left") ? 1 : -1
 
   wheel_x = fb*chassis_length/2
   wheel_y = lr*chassis_width/2
 
-  wheels[wheel_name][:pose] = "#{wheel_x} #{wheel_y} 0 0 -0 0"
+  spheres[wheel_name][:pose] = "#{wheel_x} #{wheel_y} 0 0 -0 0"
 
-  # Joint (for controlling ugv motion)
+  # Joint
   joint_name = wheel_name + "-joint"
-  revolute_joints[joint_name] = { parent: chassis_name, child: wheel_name }
+  revolute_joints[joint_name] = { parent: "chassis", child: wheel_name }
 
-  # Wheel legs (extra collisions/visuals for each wheel--not links/joints)
-  wheels[wheel_name][:legs] = []
+  # Wheel legs
   (1..wheel_leg_count).each do |leg|
 
+    # Link
+    leg_name = wheel_name + "-leg#{leg}"
+    spheres[leg_name] = sphere_inertia(wheel_leg_radius, density)
+
     angle = leg.to_f/wheel_leg_count*2*Math::PI
-    leg_x = (wheel_radius + wheel_leg_extension)*Math::cos(angle)
-    leg_y = 0
+    leg_x = wheel_x + (wheel_radius + wheel_leg_extension)*Math::cos(angle)
+    leg_y = wheel_y
     leg_z = (wheel_radius + wheel_leg_extension)*Math::sin(angle)
 
-    wheels[wheel_name][:legs].push({
-      name: wheel_name + "-leg#{leg}",
-      pose: "#{leg_x} #{leg_y} #{leg_z} 0 -0 0",
-      radius: wheel_leg_radius
-    })
+    spheres[leg_name][:pose] = "#{leg_x} #{leg_y} #{leg_z} 0 -0 0"
+
+    # Joint (fixed)
+    leg_joint_name = leg_name + "-joint"
+    fixed_joints[leg_joint_name] = { parent: wheel_name, child: leg_name }
   end
 end
 
@@ -107,30 +99,37 @@ end
 
 
 <sdf version='1.6'>
-  <model name='ugv'>
+  <model name='ugv-rb'>
 
     <plugin name="controller" filename="libcontroller_plugin.so"/>
 
-    <link name='<%= chassis_name %>'>
 
-      <pose frame=''>0 0 0 0 -0 0</pose>
+<%
+boxes.keys.each do |k|
+  box = boxes[k]
+%>
+
+
+    <link name='<%= k %>'>
+
+      <pose frame=''><%= box[:pose] %></pose>
 
       <inertial>
-        <mass><%= chassis[:mass] %></mass>
+        <mass><%= box[:mass] %></mass>
         <inertia>
-          <ixx><%= chassis[:ixx] %></ixx>
+          <ixx><%= box[:ixx] %></ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy><%= chassis[:iyy] %></iyy>
+          <iyy><%= box[:iyy] %></iyy>
           <iyz>0</iyz>
-          <izz><%= chassis[:izz] %></izz>
+          <izz><%= box[:izz] %></izz>
         </inertia>
       </inertial>
 
       <visual name='visual'>
         <geometry>
           <box>
-            <size><%= chassis[:size] %></size>
+            <size><%= box[:size] %></size>
           </box>
         </geometry>
         <material>
@@ -145,24 +144,23 @@ end
       <collision name='collision'>
         <geometry>
           <box>
-            <size><%= chassis[:size] %></size>
+            <size><%= box[:size] %></size>
           </box>
         </geometry>
       </collision>
 
+<% if k == "camera" %>
       <sensor name='stereo_camera' type='multicamera'>
-
-        <pose><%= camera[:pose] %></pose>
 
         <always_on>1</always_on>
         <update_rate>10</update_rate>
 
         <camera name="left">
-          <save enabled="<%= camera_on %>">
-            <path><%= camera_path_prefix%>left</path>
+          <save enabled="false">
+            <path>/tmp/stereo_camera_left</path>
           </save>
           <horizontal_fov>1.047</horizontal_fov>
-          <pose>0 <%= camera_eye_offset %> 0 0 0 0</pose>
+          <pose>0 0.05 0 0 0 0</pose>
           <image>
             <width>400</width>
             <height>400</height>
@@ -179,11 +177,11 @@ end
         </camera>
 
         <camera name="right">
-          <save enabled="<%= camera_on %>">
-            <path><%= camera_path_prefix%>right</path>
+          <save enabled="false">
+            <path>/tmp/stereo_camera_right</path>
           </save>
           <horizontal_fov>1.047</horizontal_fov>
-          <pose>0 -<%= camera_eye_offset %> 0 0 0 0</pose>
+          <pose>0 -0.05 0 0 0 0</pose>
           <image>
             <width>400</width>
             <height>400</height>
@@ -200,68 +198,40 @@ end
         </camera>
 
       </sensor>
-
-      <visual name='camera-visual'>
-        <pose><%= camera[:pose] %></pose>
-        <geometry>
-          <box>
-            <size><%= camera[:size] %></size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.3 0.6 0.3 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-
-      <visual name='camera-pole-visual'>
-        <pose><%= camera[:poll_pose] %></pose>
-        <geometry>
-          <box>
-            <size><%= camera[:poll_size] %></size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.3 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
+<% end %>
 
     </link>
 
 
 <%
-wheels.keys.each do |k|
-  wheel = wheels[k]
+# End the box iteration
+end
+
+spheres.keys.each do |k|
+  sphere = spheres[k]
 %>
 
 
     <link name='<%= k %>'>
 
-      <pose frame=''><%= wheel[:pose] %></pose>
+      <pose frame=''><%= sphere[:pose] %></pose>
 
       <inertial>
-        <mass><%= wheel[:mass] %></mass>
+        <mass><%= sphere[:mass] %></mass>
         <inertia>
-          <ixx><%= wheel[:ixx] %></ixx>
+          <ixx><%= sphere[:ixx] %></ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy><%= wheel[:iyy] %></iyy>
+          <iyy><%= sphere[:iyy] %></iyy>
           <iyz>0</iyz>
-          <izz><%= wheel[:izz] %></izz>
+          <izz><%= sphere[:izz] %></izz>
         </inertia>
       </inertial>
 
       <visual name='visual'>
         <geometry>
           <sphere>
-            <radius><%= wheel[:radius] %></radius>
+            <radius><%= sphere[:radius] %></radius>
           </sphere>
         </geometry>
         <material>
@@ -276,41 +246,10 @@ wheels.keys.each do |k|
       <collision name='collision'>
         <geometry>
           <sphere>
-            <radius><%= wheel[:radius] %></radius>
+            <radius><%= sphere[:radius] %></radius>
           </sphere>
         </geometry>
       </collision>
-
-<%
-  wheel[:legs].each do |leg|
-%>
-      <visual name='<%= leg[:name] %>-visual'>
-        <pose><%= leg[:pose] %></pose>
-        <geometry>
-          <sphere>
-            <radius><%= leg[:radius] %></radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.6 0.3 0.3 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-
-      <collision name='<%= leg[:name] %>-collision'>
-        <pose><%= leg[:pose] %></pose>
-        <geometry>
-          <sphere>
-            <radius><%= leg[:radius] %></radius>
-          </sphere>
-        </geometry>
-      </collision>
-<%
-  end
-%>
 
     </link>
 
@@ -336,6 +275,21 @@ revolute_joints.keys.each do |k|
 
 <%
 # End the revolute_joints iteration
+end
+
+fixed_joints.keys.each do |k|
+  joint = fixed_joints[k]
+%>
+
+
+    <joint name='<%= k %>' type='fixed'>
+      <parent><%= joint[:parent] %></parent>
+      <child><%= joint[:child] %></child>
+    </joint>
+
+
+<%
+# End the fixed_joints iteration
 end
 %>
 
