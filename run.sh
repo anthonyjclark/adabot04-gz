@@ -3,8 +3,10 @@
 # Setup environment
 if [[ ":$GAZEBO_MODEL_PATH" == *":$(pwd)"* ]]; then
 
-    if [[ "$1" == "heightmap" ]]; then
-        gazebo --pause --verbose worlds/test_heightmap.world
+    if [[ "$1" == "hm-rgb" ]]; then
+        gazebo --pause --verbose worlds/heightmap-rgb.world
+    else if [[ "$1" == "hm-dirt" ]]; then
+        gazebo --pause --verbose worlds/heightmap-dirt.world
     else
         gazebo --pause --verbose worlds/empty.world
     fi

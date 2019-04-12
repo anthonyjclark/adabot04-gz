@@ -21,9 +21,7 @@ To view the camera output:
 
 # TODO
 
-- Position camera so that wheels are not in frame
-- Move model plugin to model/ugv directory (after `erb`)
-- Switch from fixed joints to multiple collisions/visuals for a single link?
+- Move model plugin to model/ugv directory
 - Convert camera output images to video ([tutorial](http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo))
 - Running the simulation in headless mode ([tutorial](http://answers.gazebosim.org/question/14625/running-a-camera-sensor-headless/))
 
@@ -58,7 +56,7 @@ The `run.sh` script is just a quick wrapper around the following commands:
 
 ~~~bash
 gazebo --pause --verbose worlds/empty.world
-gazebo --pause --verbose worlds/test_heightmap.world
+gazebo --pause --verbose worlds/heightmap-rgb.world
 ~~~
 
 # Building the controller plugin
@@ -72,15 +70,15 @@ cd ~/projects/adabot04-gz/controller
 
 # Updating terrain model
 
-Gazebo caches the heightmap model. So, after making changes to `models/terrain/model.sdf` you must clear the cache with the following command:
+Gazebo caches the heightmap model. So, after making changes to `models/terrain-rgb/model.sdf` (or `models/terrain-dirt/model.sdf`) you must clear the cache with the following command:
 
 ~~~bash
-rm -r ~/.gazebo/paging/terrain-heightmap/
+rm -r ~/.gazebo/paging/
 ~~~
 
 # Creating new terrains
 
-The terrain model directory (`./models/terrain`) contains the two files needed to create a heightmap-style terrain in Gazebo. `terrain-heighmap.png` is a grayscale image where the intensity of a pixel indicates the height, and `terrain-texture.png` is a texture that can be used to *label* the different terrain types. See `notebooks/create_texture.ipynb` for an example of how to create a texture (you an use similar techniques for creating the heightmap image).
+The terrain model directories (`./models/terrain-*`) contains the two files needed to create a heightmap-style terrain in Gazebo. `terrain-heighmap-*.png` is a grayscale image where the intensity of a pixel indicates the height, and `terrain-texture-*.png` is a texture that can be used to *label* the different terrain types. See `notebooks/create_texture.ipynb` for an example of how to create a texture (you an use similar techniques for creating the heightmap image).
 
 # Generating SDF from erb
 

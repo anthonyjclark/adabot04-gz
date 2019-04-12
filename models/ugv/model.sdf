@@ -1,9 +1,18 @@
 <?xml version='1.0'?>
+
+
+
+
+
 <sdf version='1.6'>
-  <model name='ugv-rb'>
+  <model name='ugv'>
+
     <plugin name="controller" filename="libcontroller_plugin.so"/>
+
     <link name='chassis'>
+
       <pose frame=''>0 0 0 0 -0 0</pose>
+
       <inertial>
         <mass>0.71616</mass>
         <inertia>
@@ -15,6 +24,7 @@
           <izz>0.005824768000000001</izz>
         </inertia>
       </inertial>
+
       <visual name='visual'>
         <geometry>
           <box>
@@ -29,6 +39,7 @@
         </material>
         <transparency>0</transparency>
       </visual>
+
       <collision name='collision'>
         <geometry>
           <box>
@@ -36,44 +47,14 @@
           </box>
         </geometry>
       </collision>
-    </link>
-    <link name='camera'>
-      <pose frame=''>0 0 0.125 0 0.5235987755982988 0</pose>
-      <inertial>
-        <mass>0.04662500000000001</mass>
-        <inertia>
-          <ixx>1.942708333333334e-05</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.942708333333334e-05</iyy>
-          <iyz>0</iyz>
-          <izz>1.942708333333334e-05</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <box>
-            <size>0.05 0.05 0.05</size>
-          </box>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.3 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <box>
-            <size>0.05 0.05 0.05</size>
-          </box>
-        </geometry>
-      </collision>
+
       <sensor name='stereo_camera' type='multicamera'>
+
+        <pose>0.07 0 0.115 0 0.5235987755982988 0</pose>
+
         <always_on>1</always_on>
         <update_rate>10</update_rate>
+
         <camera name="left">
           <save enabled="false">
             <path>/tmp/stereo_camera_left</path>
@@ -94,6 +75,7 @@
             <stddev>0.007</stddev>
           </noise> -->
         </camera>
+
         <camera name="right">
           <save enabled="false">
             <path>/tmp/stereo_camera_right</path>
@@ -114,10 +96,51 @@
             <stddev>0.007</stddev>
           </noise> -->
         </camera>
+
       </sensor>
+
+      <visual name='camera-visual'>
+        <pose>0.07 0 0.115 0 0.5235987755982988 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.1 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.3 0.6 0.3 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0.01 0.01 0.01 1</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+        <transparency>0</transparency>
+      </visual>
+
+      <visual name='camera-pole-visual'>
+        <pose>0.07 0 0.0575 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02142857142857143 0.02142857142857143 0.115</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.3 0.3 0.3 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0.01 0.01 0.01 1</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+        <transparency>0</transparency>
+      </visual>
+
     </link>
+
+
+
+
+
     <link name='front-right-wheel'>
+
       <pose frame=''>0.1 -0.12 0 0 -0 0</pose>
+
       <inertial>
         <mass>0.1953023432981655</mass>
         <inertia>
@@ -129,6 +152,7 @@
           <izz>0.00019530234329816556</izz>
         </inertia>
       </inertial>
+
       <visual name='visual'>
         <geometry>
           <sphere>
@@ -143,6 +167,7 @@
         </material>
         <transparency>0</transparency>
       </visual>
+
       <collision name='collision'>
         <geometry>
           <sphere>
@@ -150,184 +175,94 @@
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='front-right-wheel-leg1'>
-      <pose frame=''>0.12317627457812107 -0.12 0.07132923872213652 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+
+      <visual name='front-right-wheel-leg1-visual'>
+        <pose>-0.03749999999999999 0 0.06495190528383292 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='front-right-wheel-leg1-collision'>
+        <pose>-0.03749999999999999 0 0.06495190528383292 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='front-right-wheel-leg2'>
-      <pose frame=''>0.039323725421878945 -0.12 0.0440838939219355 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+      <visual name='front-right-wheel-leg2-visual'>
+        <pose>-0.03750000000000004 0 -0.06495190528383289 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='front-right-wheel-leg2-collision'>
+        <pose>-0.03750000000000004 0 -0.06495190528383289 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='front-right-wheel-leg3'>
-      <pose frame=''>0.03932372542187893 -0.12 -0.044083893921935485 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+      <visual name='front-right-wheel-leg3-visual'>
+        <pose>0.07500000000000001 0 -1.83697019872103e-17 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='front-right-wheel-leg3-collision'>
+        <pose>0.07500000000000001 0 -1.83697019872103e-17 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
+
+
     </link>
-    <link name='front-right-wheel-leg4'>
-      <pose frame=''>0.12317627457812105 -0.12 -0.07132923872213653 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-      </collision>
-    </link>
-    <link name='front-right-wheel-leg5'>
-      <pose frame=''>0.17500000000000002 -0.12 -1.83697019872103e-17 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-      </collision>
-    </link>
+
+
+
+
+
     <link name='front-left-wheel'>
+
       <pose frame=''>0.1 0.12 0 0 -0 0</pose>
+
       <inertial>
         <mass>0.1953023432981655</mass>
         <inertia>
@@ -339,6 +274,7 @@
           <izz>0.00019530234329816556</izz>
         </inertia>
       </inertial>
+
       <visual name='visual'>
         <geometry>
           <sphere>
@@ -353,6 +289,7 @@
         </material>
         <transparency>0</transparency>
       </visual>
+
       <collision name='collision'>
         <geometry>
           <sphere>
@@ -360,184 +297,94 @@
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='front-left-wheel-leg1'>
-      <pose frame=''>0.12317627457812107 0.12 0.07132923872213652 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+
+      <visual name='front-left-wheel-leg1-visual'>
+        <pose>-0.03749999999999999 0 0.06495190528383292 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='front-left-wheel-leg1-collision'>
+        <pose>-0.03749999999999999 0 0.06495190528383292 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='front-left-wheel-leg2'>
-      <pose frame=''>0.039323725421878945 0.12 0.0440838939219355 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+      <visual name='front-left-wheel-leg2-visual'>
+        <pose>-0.03750000000000004 0 -0.06495190528383289 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='front-left-wheel-leg2-collision'>
+        <pose>-0.03750000000000004 0 -0.06495190528383289 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='front-left-wheel-leg3'>
-      <pose frame=''>0.03932372542187893 0.12 -0.044083893921935485 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+      <visual name='front-left-wheel-leg3-visual'>
+        <pose>0.07500000000000001 0 -1.83697019872103e-17 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='front-left-wheel-leg3-collision'>
+        <pose>0.07500000000000001 0 -1.83697019872103e-17 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
+
+
     </link>
-    <link name='front-left-wheel-leg4'>
-      <pose frame=''>0.12317627457812105 0.12 -0.07132923872213653 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-      </collision>
-    </link>
-    <link name='front-left-wheel-leg5'>
-      <pose frame=''>0.17500000000000002 0.12 -1.83697019872103e-17 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-      </collision>
-    </link>
+
+
+
+
+
     <link name='back-right-wheel'>
+
       <pose frame=''>-0.1 -0.12 0 0 -0 0</pose>
+
       <inertial>
         <mass>0.1953023432981655</mass>
         <inertia>
@@ -549,6 +396,7 @@
           <izz>0.00019530234329816556</izz>
         </inertia>
       </inertial>
+
       <visual name='visual'>
         <geometry>
           <sphere>
@@ -563,6 +411,7 @@
         </material>
         <transparency>0</transparency>
       </visual>
+
       <collision name='collision'>
         <geometry>
           <sphere>
@@ -570,184 +419,94 @@
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='back-right-wheel-leg1'>
-      <pose frame=''>-0.07682372542187894 -0.12 0.07132923872213652 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+
+      <visual name='back-right-wheel-leg1-visual'>
+        <pose>-0.03749999999999999 0 0.06495190528383292 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='back-right-wheel-leg1-collision'>
+        <pose>-0.03749999999999999 0 0.06495190528383292 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='back-right-wheel-leg2'>
-      <pose frame=''>-0.16067627457812106 -0.12 0.0440838939219355 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+      <visual name='back-right-wheel-leg2-visual'>
+        <pose>-0.03750000000000004 0 -0.06495190528383289 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='back-right-wheel-leg2-collision'>
+        <pose>-0.03750000000000004 0 -0.06495190528383289 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='back-right-wheel-leg3'>
-      <pose frame=''>-0.1606762745781211 -0.12 -0.044083893921935485 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+      <visual name='back-right-wheel-leg3-visual'>
+        <pose>0.07500000000000001 0 -1.83697019872103e-17 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='back-right-wheel-leg3-collision'>
+        <pose>0.07500000000000001 0 -1.83697019872103e-17 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
+
+
     </link>
-    <link name='back-right-wheel-leg4'>
-      <pose frame=''>-0.07682372542187896 -0.12 -0.07132923872213653 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-      </collision>
-    </link>
-    <link name='back-right-wheel-leg5'>
-      <pose frame=''>-0.024999999999999994 -0.12 -1.83697019872103e-17 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-      </collision>
-    </link>
+
+
+
+
+
     <link name='back-left-wheel'>
+
       <pose frame=''>-0.1 0.12 0 0 -0 0</pose>
+
       <inertial>
         <mass>0.1953023432981655</mass>
         <inertia>
@@ -759,6 +518,7 @@
           <izz>0.00019530234329816556</izz>
         </inertia>
       </inertial>
+
       <visual name='visual'>
         <geometry>
           <sphere>
@@ -773,6 +533,7 @@
         </material>
         <transparency>0</transparency>
       </visual>
+
       <collision name='collision'>
         <geometry>
           <sphere>
@@ -780,182 +541,90 @@
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='back-left-wheel-leg1'>
-      <pose frame=''>-0.07682372542187894 0.12 0.07132923872213652 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+
+      <visual name='back-left-wheel-leg1-visual'>
+        <pose>-0.03749999999999999 0 0.06495190528383292 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='back-left-wheel-leg1-collision'>
+        <pose>-0.03749999999999999 0 0.06495190528383292 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='back-left-wheel-leg2'>
-      <pose frame=''>-0.16067627457812106 0.12 0.0440838939219355 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+      <visual name='back-left-wheel-leg2-visual'>
+        <pose>-0.03750000000000004 0 -0.06495190528383289 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='back-left-wheel-leg2-collision'>
+        <pose>-0.03750000000000004 0 -0.06495190528383289 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
-    </link>
-    <link name='back-left-wheel-leg3'>
-      <pose frame=''>-0.1606762745781211 0.12 -0.044083893921935485 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
+
+      <visual name='back-left-wheel-leg3-visual'>
+        <pose>0.07500000000000001 0 -1.83697019872103e-17 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
+          <ambient>0.6 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <transparency>0</transparency>
       </visual>
-      <collision name='collision'>
+
+      <collision name='back-left-wheel-leg3-collision'>
+        <pose>0.07500000000000001 0 -1.83697019872103e-17 0 -0 0</pose>
         <geometry>
           <sphere>
             <radius>0.005</radius>
           </sphere>
         </geometry>
       </collision>
+
+
     </link>
-    <link name='back-left-wheel-leg4'>
-      <pose frame=''>-0.07682372542187896 0.12 -0.07132923872213653 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-      </collision>
-    </link>
-    <link name='back-left-wheel-leg5'>
-      <pose frame=''>-0.024999999999999994 0.12 -1.83697019872103e-17 0 -0 0</pose>
-      <inertial>
-        <mass>0.00019530234329816546</mass>
-        <inertia>
-          <ixx>1.953023432981655e-09</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1.953023432981655e-09</iyy>
-          <iyz>0</iyz>
-          <izz>1.953023432981655e-09</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <ambient>0.3 0.3 0.6 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
-        <transparency>0</transparency>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.005</radius>
-          </sphere>
-        </geometry>
-      </collision>
-    </link>
+
+
+
+
+
     <joint name='front-right-wheel-joint' type='revolute'>
       <parent>chassis</parent>
       <child>front-right-wheel</child>
@@ -964,6 +633,11 @@
         <xyz>0 1 0</xyz>
       </axis>
     </joint>
+
+
+
+
+
     <joint name='front-left-wheel-joint' type='revolute'>
       <parent>chassis</parent>
       <child>front-left-wheel</child>
@@ -972,6 +646,11 @@
         <xyz>0 1 0</xyz>
       </axis>
     </joint>
+
+
+
+
+
     <joint name='back-right-wheel-joint' type='revolute'>
       <parent>chassis</parent>
       <child>back-right-wheel</child>
@@ -980,6 +659,11 @@
         <xyz>0 1 0</xyz>
       </axis>
     </joint>
+
+
+
+
+
     <joint name='back-left-wheel-joint' type='revolute'>
       <parent>chassis</parent>
       <child>back-left-wheel</child>
@@ -988,89 +672,9 @@
         <xyz>0 1 0</xyz>
       </axis>
     </joint>
-    <joint name='camera-joint' type='fixed'>
-      <parent>chassis</parent>
-      <child>camera</child>
-    </joint>
-    <joint name='front-right-wheel-leg1-joint' type='fixed'>
-      <parent>front-right-wheel</parent>
-      <child>front-right-wheel-leg1</child>
-    </joint>
-    <joint name='front-right-wheel-leg2-joint' type='fixed'>
-      <parent>front-right-wheel</parent>
-      <child>front-right-wheel-leg2</child>
-    </joint>
-    <joint name='front-right-wheel-leg3-joint' type='fixed'>
-      <parent>front-right-wheel</parent>
-      <child>front-right-wheel-leg3</child>
-    </joint>
-    <joint name='front-right-wheel-leg4-joint' type='fixed'>
-      <parent>front-right-wheel</parent>
-      <child>front-right-wheel-leg4</child>
-    </joint>
-    <joint name='front-right-wheel-leg5-joint' type='fixed'>
-      <parent>front-right-wheel</parent>
-      <child>front-right-wheel-leg5</child>
-    </joint>
-    <joint name='front-left-wheel-leg1-joint' type='fixed'>
-      <parent>front-left-wheel</parent>
-      <child>front-left-wheel-leg1</child>
-    </joint>
-    <joint name='front-left-wheel-leg2-joint' type='fixed'>
-      <parent>front-left-wheel</parent>
-      <child>front-left-wheel-leg2</child>
-    </joint>
-    <joint name='front-left-wheel-leg3-joint' type='fixed'>
-      <parent>front-left-wheel</parent>
-      <child>front-left-wheel-leg3</child>
-    </joint>
-    <joint name='front-left-wheel-leg4-joint' type='fixed'>
-      <parent>front-left-wheel</parent>
-      <child>front-left-wheel-leg4</child>
-    </joint>
-    <joint name='front-left-wheel-leg5-joint' type='fixed'>
-      <parent>front-left-wheel</parent>
-      <child>front-left-wheel-leg5</child>
-    </joint>
-    <joint name='back-right-wheel-leg1-joint' type='fixed'>
-      <parent>back-right-wheel</parent>
-      <child>back-right-wheel-leg1</child>
-    </joint>
-    <joint name='back-right-wheel-leg2-joint' type='fixed'>
-      <parent>back-right-wheel</parent>
-      <child>back-right-wheel-leg2</child>
-    </joint>
-    <joint name='back-right-wheel-leg3-joint' type='fixed'>
-      <parent>back-right-wheel</parent>
-      <child>back-right-wheel-leg3</child>
-    </joint>
-    <joint name='back-right-wheel-leg4-joint' type='fixed'>
-      <parent>back-right-wheel</parent>
-      <child>back-right-wheel-leg4</child>
-    </joint>
-    <joint name='back-right-wheel-leg5-joint' type='fixed'>
-      <parent>back-right-wheel</parent>
-      <child>back-right-wheel-leg5</child>
-    </joint>
-    <joint name='back-left-wheel-leg1-joint' type='fixed'>
-      <parent>back-left-wheel</parent>
-      <child>back-left-wheel-leg1</child>
-    </joint>
-    <joint name='back-left-wheel-leg2-joint' type='fixed'>
-      <parent>back-left-wheel</parent>
-      <child>back-left-wheel-leg2</child>
-    </joint>
-    <joint name='back-left-wheel-leg3-joint' type='fixed'>
-      <parent>back-left-wheel</parent>
-      <child>back-left-wheel-leg3</child>
-    </joint>
-    <joint name='back-left-wheel-leg4-joint' type='fixed'>
-      <parent>back-left-wheel</parent>
-      <child>back-left-wheel-leg4</child>
-    </joint>
-    <joint name='back-left-wheel-leg5-joint' type='fixed'>
-      <parent>back-left-wheel</parent>
-      <child>back-left-wheel-leg5</child>
-    </joint>
+
+
+
+
   </model>
 </sdf>
