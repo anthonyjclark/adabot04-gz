@@ -22,6 +22,7 @@ To view the camera output:
 # TODO
 
 - Create link for camera and tilt it towards the ground
+- Position camera so that wheels are not in frame
 - Move model plugin to model/ugv directory (after `erb`)
 - Switch from fixed joints to multiple collisions/visuals for a single link?
 - Convert camera output images to video ([tutorial](http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo))
