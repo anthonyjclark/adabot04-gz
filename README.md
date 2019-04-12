@@ -73,15 +73,15 @@ cd ~/projects/adabot04-gz/controller
 
 # Updating terrain model
 
-Gazebo caches the heightmap model. So, after making changes to `models/terrain/model.sdf` you must clear the cache with the following command:
+Gazebo caches the heightmap model. So, after making changes to `models/terrain-rgb/model.sdf` (or `models/terrain-dirt/model.sdf`) you must clear the cache with the following command:
 
 ~~~bash
-rm -r ~/.gazebo/paging/terrain-heightmap/
+rm -r ~/.gazebo/paging/
 ~~~
 
 # Creating new terrains
 
-The terrain model directory (`./models/terrain`) contains the two files needed to create a heightmap-style terrain in Gazebo. `terrain-heighmap.png` is a grayscale image where the intensity of a pixel indicates the height, and `terrain-texture.png` is a texture that can be used to *label* the different terrain types. See `notebooks/create_texture.ipynb` for an example of how to create a texture (you an use similar techniques for creating the heightmap image).
+The terrain model directories (`./models/terrain-*`) contains the two files needed to create a heightmap-style terrain in Gazebo. `terrain-heighmap-*.png` is a grayscale image where the intensity of a pixel indicates the height, and `terrain-texture-*.png` is a texture that can be used to *label* the different terrain types. See `notebooks/create_texture.ipynb` for an example of how to create a texture (you an use similar techniques for creating the heightmap image).
 
 # Generating SDF from erb
 
