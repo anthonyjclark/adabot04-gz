@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='terrain'>
+  <model name='terrain-dirt'>
 
     <static>true</static>
 
@@ -9,7 +9,7 @@
       <collision name="heightmap-collision">
         <geometry>
           <heightmap>
-            <uri>model://terrain/terrain-heightmap.png</uri>
+            <uri>model://terrain-dirt/terrain-heightmap-dirt.png</uri>
             <size>10 10 0.5</size>
             <pos>0 0 0</pos>
           </heightmap>
@@ -23,20 +23,12 @@
             <use_terrain_paging>false</use_terrain_paging>
 
             <texture>
-              <diffuse>model://terrain/terrain-texture.png</diffuse>
-              <normal>file://media/materials/textures/flat_normal.png</normal>
-              <size>10</size>
-            </texture>
-
-            <!-- Prettier texture. You will need to delete the cache to see it.
-            <texture>
               <diffuse>file://media/materials/textures/dirt_diffusespecular.png</diffuse>
               <normal>file://media/materials/textures/flat_normal.png</normal>
               <size>1</size>
-            </texture> 
-            -->
+            </texture>
 
-            <uri>model://terrain/terrain-heightmap.png</uri>
+            <uri>model://terrain-dirt/terrain-heightmap-dirt.png</uri>
             <size>10 10 0.5</size>
             <pos>0 0 0</pos>
 

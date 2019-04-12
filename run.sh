@@ -4,7 +4,7 @@
 if [[ ":$GAZEBO_MODEL_PATH" == *":$(pwd)"* ]]; then
 
     if [[ "$1" == "heightmap" ]]; then
-        gazebo --pause --verbose worlds/test_heightmap.world
+        gazebo --pause --verbose worlds/heightmap-rgb.world
     else
         gazebo --pause --verbose worlds/empty.world
     fi

@@ -59,7 +59,7 @@ The `run.sh` script is just a quick wrapper around the following commands:
 
 ~~~bash
 gazebo --pause --verbose worlds/empty.world
-gazebo --pause --verbose worlds/test_heightmap.world
+gazebo --pause --verbose worlds/heightmap-rgb.world
 ~~~
 
 # Building the controller plugin
