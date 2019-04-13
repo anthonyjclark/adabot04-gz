@@ -22,10 +22,11 @@ camera_on = "false"
 camera_path_prefix = "/tmp/stereo_camera_"
 
 wheel_radius = 0.05
+wheel_offset_z = -0.025
 
-wheel_leg_count = 3
+wheel_leg_count = 5
 wheel_leg_radius = 0.005
-wheel_leg_extension = wheel_radius * 0.5
+wheel_leg_extension = wheel_radius * 0.75
 
 def box_inertia(x, y, z, density)
   box = {}
@@ -80,7 +81,7 @@ wheel_names.each do |name|
   wheel_x = fb*chassis_length/2
   wheel_y = lr*chassis_width/2
 
-  wheels[wheel_name][:pose] = "#{wheel_x} #{wheel_y} 0 0 -0 0"
+  wheels[wheel_name][:pose] = "#{wheel_x} #{wheel_y} #{wheel_offset_z} 0 -0 0"
 
   # Joint (for controlling ugv motion)
   joint_name = wheel_name + "-joint"

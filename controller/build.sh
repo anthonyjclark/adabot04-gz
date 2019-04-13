@@ -9,7 +9,7 @@ if [ ! -d "build" ]; then
     make
 else
     echo "Calling make"
-    echo "Delete /"build/" if you've made changes to CMakeLists.txt"
+    echo "Delete \"build\" if you've made changes to CMakeLists.txt"
     cd build
     make
 fi
