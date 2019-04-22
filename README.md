@@ -107,3 +107,5 @@ ensure that the brewed packages come earlier in Python's sys.path with:
   echo 'import sys; sys.path.insert(1, "/usr/local/lib/python3.7/site-packages")' >> /Users/ajc/Library/Python/2.7/lib/python/site-packages/homebrew.pth
 
 https://www.desmos.com/calculator/n8kwtwfrce
+
+On mac I need to put the full path to the plugin.

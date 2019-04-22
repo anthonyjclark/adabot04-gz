@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
   <model name='ugv'>
-    <plugin name="controller" filename="libcontroller_plugin.so"/>
+    <plugin name="controller" filename="/Users/ajc/Documents/projects/adabot/adabot04-gz/controller/fsm_plugin/build/libfsm_plugin.so"/>
     <link name='chassis'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>
