@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
   <model name='ugv'>
-    <plugin name="controller" filename="libkeyboard_controller.so"/>
+    <plugin name="controller" filename="/Users/ajc/Documents/projects/adabot/adabot04-gz/plugins/keyboard_controller/build/libkeyboard_controller.so"/>
     <link name='chassis'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>
