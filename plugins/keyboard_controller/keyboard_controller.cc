@@ -4,9 +4,8 @@
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
 
-#include <ignition/math/Vector2.hh>
 #include <ignition/math/Helpers.hh>
-
+#include <ignition/math/Vector2.hh>
 
 using ignition::math::Vector3d;
 
@@ -14,20 +13,16 @@ namespace gazebo {
 class KeyboardController : public ModelPlugin
 {
 public:
-
-  KeyboardController()
-  {
-
-  }
+  KeyboardController() {}
 
   void Load(physics::ModelPtr _model, sdf::ElementPtr /*_sdf*/)
   {
     // Get a pointer to each wheel joint
     // TODO: joint names should be parameterized
-    this->left_front = this->_model->GetJoint("front-left-wheel-joint");
-    this->left_back = this->_model->GetJoint("back-left-wheel-joint");
-    this->right_front = this->_model->GetJoint("front-right-wheel-joint");
-    this->right_back = this->_model->GetJoint("back-right-wheel-joint");
+    this->left_front = _model->GetJoint("front-left-wheel-joint");
+    this->left_back = _model->GetJoint("back-left-wheel-joint");
+    this->right_front = _model->GetJoint("front-right-wheel-joint");
+    this->right_back = _model->GetJoint("back-right-wheel-joint");
 
     // TODO: check for invalid joints (null pointers)
 
@@ -55,100 +50,33 @@ public:
   {
     this->left_front->SetVelocity(0, left_speed);
     this->left_back->SetVelocity(0, left_speed);
-
     this->right_front->SetVelocity(0, right_speed);
     this->right_back->SetVelocity(0, right_speed);
   }
 
-void OnKeyPress(ConstAnyPtr &_msg)
-{
-  const auto key = static_cast<const unsigned int>(_msg->int_value());
-
-  double linearVel = 0., angularVel = 0.;
-  bool linearVelSet = false, angularVelSet = false;
-
-  auto &message = this->dataPtr->keyboardControlMessage;
-
-  if (key == STOP_KEY)
+  void OnKeyPress(ConstAnyPtr& _msg)
   {
-    linearVel = 0.;
-    linearVelSet = true;
+    const auto key = static_cast<const unsigned int>(_msg->int_value());
 
-    angularVel = 0.;
-    angularVelSet = true;
-  }
-  else if (key == FORWARD_KEY) {
-      linearVel = this->dataPtr->maxLinearVel;
-      linearVelSet = true;
-    }
-    else if (key == BACKWARD_KEY)
-    {
-      linearVel = this->dataPtr->minLinearVel;
-      linearVelSet = true;
-    }
+    std::cout << key << std::endl;
 
-    if (linearVelSet)
-    {
-      const auto oldLinearVel = message->position().x();
-
-      if (!ignition::math::equal(linearVel, oldLinearVel))
-      {
-        const auto increment = ignition::math::signum(linearVel) *
-            this->dataPtr->linearIncrement;
-        linearVel = ignition::math::clamp(oldLinearVel + increment,
-          this->dataPtr->minLinearVel, this->dataPtr->maxLinearVel);
-      }
-    }
-
-    if (std::find(this->dataPtr->keys->left.begin(),
-                  this->dataPtr->keys->left.end(), key) !=
-      this->dataPtr->keys->left.end())
-    {
-      angularVel = -this->dataPtr->maxAngularVel;
-      angularVelSet = true;
-    }
-    else if (std::find(this->dataPtr->keys->right.begin(),
-                       this->dataPtr->keys->right.end(), key)
-      != this->dataPtr->keys->right.end())
-    {
-      angularVel = this->dataPtr->maxAngularVel;
-      angularVelSet = true;
-    }
-
-    if (angularVelSet)
-    {
-      const auto oldAngularVel =
-        msgs::ConvertIgn(message->orientation()).Euler().Z();
-
-      if (!ignition::math::equal(angularVel, oldAngularVel))
-      {
-        const auto increment = ignition::math::signum(angularVel) *
-            this->dataPtr->angularIncrement;
-        angularVel = ignition::math::clamp(oldAngularVel + increment,
-            -this->dataPtr->maxAngularVel, this->dataPtr->maxAngularVel);
-      }
+    if (key == stop_key) {
+      left_speed = 0;
+      right_speed = 0;
+    } else if (key == forward_key) {
+      left_speed = max_wheel_speed;
+      right_speed = max_wheel_speed;
+    } else if (key == backward_key) {
+      left_speed = -max_wheel_speed;
+      right_speed = -max_wheel_speed;
+    } else if (key == left_key) {
+      left_speed = -max_wheel_speed;
+      right_speed = max_wheel_speed;
+    } else if (key == right_key) {
+      left_speed = max_wheel_speed;
+      right_speed = -max_wheel_speed;
     }
   }
-
-  if (linearVelSet)
-  {
-    message->mutable_position()->set_x(linearVel);
-  }
-
-  if (angularVelSet)
-  {
-    auto yaw = ignition::math::Quaterniond::EulerToQuaternion(
-      0, 0, angularVel);
-    msgs::Set(message->mutable_orientation(), yaw);
-  }
-
-  if (linearVelSet || angularVelSet)
-  {
-    this->dataPtr->cmdVelPub->Publish(*message);
-  }
-}
-
-
 
 private:
   // Pointer to each wheel joint
@@ -161,29 +89,22 @@ private:
   event::ConnectionPtr updateConnection;
 
   // Control
+  double max_wheel_speed = 8.0;
+  double left_speed = 0.0;
+  double right_speed = 0.0;
 
-
-  // Maximum linear velocity (for forward driving, positive) (m/s).
-  double maxLinearVel = 1.0;
-
-  // Maximum angular velocity (positive value) (rad/s).
-  double maxAngularVel = 1.0;
-
-  // The value to add/subtract every time the linear velocity key is
-  /// pressed (strictly positive value, m/s).
-  double linearIncrement = 0.5;
-
-  // The value to add/subtract every time the angular velocity key is
-  /// pressed (strictly positive value, m/s).
-  double angularIncrement = 0.5;
+  // Keyboard codes
+  unsigned int stop_key = 32;
+  unsigned int forward_key = 16777235;//38;
+  unsigned int backward_key = 16777237;//40;
+  unsigned int left_key = 16777234;//37;
+  unsigned int right_key = 16777236;//39;
 
   // Node for communication.
   transport::NodePtr node;
 
   // Subscribe to keyboard messages.
   transport::SubscriberPtr keyboardSub;
-
-
 };
 
 // Register this plugin with the simulator

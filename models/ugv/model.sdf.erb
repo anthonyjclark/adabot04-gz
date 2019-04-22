@@ -110,7 +110,8 @@ end
 <sdf version='1.6'>
   <model name='ugv'>
 
-    <plugin name="controller" filename="libfsm_plugin.so"/>
+    <!-- <plugin name="controller" filename="libfsm_plugin.so"/> -->
+    <plugin name="controller" filename="libkeyboard_controller.so"/>
 
     <link name='<%= chassis_name %>'>
 
