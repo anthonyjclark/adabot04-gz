@@ -5,9 +5,9 @@
 mkdir -p ~/projects
 cd ~/projects
 git clone https://github.com/anthonyjclark/adabot04-gz.git
-cd adabot04-gz/controller
+cd adabot04-gz/plugins/keyboard_controller/
 ./build.sh
-cd ..
+cd ../..
 . setup_env.bash
 ./run.sh
 ```
@@ -62,9 +62,12 @@ gazebo --pause --verbose worlds/heightmap-rgb.world
 # Building the controller plugin
 
 ~~~bash
-cd ~/projects/adabot04-gz/controller
+cd ~/projects/adabot04-gz/plugins/keyboard_controller/
 
 # Go to directory and run
+./bulid.sh
+
+cd ~/projects/adabot04-gz/plugins/fsm_controller/
 ./bulid.sh
 ~~~
 
