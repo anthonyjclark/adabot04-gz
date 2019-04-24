@@ -93,12 +93,12 @@ private:
   double left_speed = 0.0;
   double right_speed = 0.0;
 
-  // Keyboard codes
-  unsigned int stop_key = 32;
-  unsigned int forward_key = 16777235;//38;
-  unsigned int backward_key = 16777237;//40;
-  unsigned int left_key = 16777234;//37;
-  unsigned int right_key = 16777236;//39;
+  // Keyboard codes (keys are different on osx)
+  unsigned int stop_key = 13;                // enter key
+  unsigned int forward_key = 16777235;//38;  // up arrow
+  unsigned int backward_key = 16777237;//40; // down arrow
+  unsigned int left_key = 16777234;//37;     // left arrow
+  unsigned int right_key = 16777236;//39;    // right arrow
 
   // Node for communication.
   transport::NodePtr node;

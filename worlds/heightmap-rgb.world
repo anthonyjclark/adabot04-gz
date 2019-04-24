@@ -2,7 +2,7 @@
   <world name='default'>
 
     <gui>
-      <plugin name="keyboard" filename="libKeyboardGUIPlugin.so"/>
+      <plugin name="keyboard" filename="libKeyboardGUIPlugin-FIXED.so"/>
     </gui>
 
     <include>
