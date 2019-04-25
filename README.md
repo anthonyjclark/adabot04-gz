@@ -5,9 +5,7 @@
 mkdir -p ~/projects
 cd ~/projects
 git clone https://github.com/anthonyjclark/adabot04-gz.git
-cd adabot04-gz/plugins/keyboard_controller/
-./build.sh
-cd ../..
+./build_plugins.sh
 . setup_env.bash
 ./run.sh
 ```
@@ -19,9 +17,8 @@ To view the camera output:
 - Open up the topic viewer with `Ctrl-T`
 - Click on `gazebo.msgs.Imagestamped->/gazebo/default/ugv/chassis/stereo_camera/images`
 
-# TODO
+# Extras
 
-- Move model plugin to model/ugv directory
 - Convert camera output images to video ([tutorial](http://gazebosim.org/tutorials?tut=camera_save&cat=sensors#ConvertImagestoVideo))
 - Running the simulation in headless mode ([tutorial](http://answers.gazebosim.org/question/14625/running-a-camera-sensor-headless/))
 
@@ -33,7 +30,7 @@ To save the stereo camera images you must change two lines in `models/ugv/model.
 <save enabled="false">
 ~~~
 
-and change `false` to `true`.
+and change `false` to `true`. There should be two lines, one for each of the stereo camera lenses.
 
 Your images will be saved in `/tmp/stereo_camera_left` and `/tmp/stereo_camera_right`. You can watch these directores with the following command: `watch ls -l /tmp/stereo_camera_left`.
 
@@ -49,7 +46,8 @@ Next, to run the a world you can type:
 
 ~~~bash
 ./run.sh 
-# or ./run.sh heightmap
+# or ./run.sh hm-rgb
+# or ./run.sh hm-dirt
 ~~~
 
 The `run.sh` script is just a quick wrapper around the following commands:
@@ -57,14 +55,17 @@ The `run.sh` script is just a quick wrapper around the following commands:
 ~~~bash
 gazebo --pause --verbose worlds/empty.world
 gazebo --pause --verbose worlds/heightmap-rgb.world
+gazebo --pause --verbose worlds/heightmap-dirt.world
 ~~~
 
 # Building the controller plugin
 
 ~~~bash
-cd ~/projects/adabot04-gz/plugins/keyboard_controller/
+# You can build all plugins with:
+./build_plugins
 
-# Go to directory and run
+# Or you can build individual plugins with:
+cd ~/projects/adabot04-gz/plugins/keyboard_controller/
 ./bulid.sh
 
 cd ~/projects/adabot04-gz/plugins/fsm_controller/
@@ -73,7 +74,7 @@ cd ~/projects/adabot04-gz/plugins/fsm_controller/
 
 # Updating terrain model
 
-Gazebo caches the heightmap model. So, after making changes to `models/terrain-rgb/model.sdf` (or `models/terrain-dirt/model.sdf`) you must clear the cache with the following command:
+Gazebo caches the heightmap model. So, after making changes to `models/terrain-rgb/model.sdf` (or and terrain models) you must clear the cache with the following command:
 
 ~~~bash
 rm -r ~/.gazebo/paging/
