@@ -15,7 +15,7 @@
     </include>
 
     <include>
-      <uri>model://terrain-dirt</uri>
+      <uri>model://terrain-dirt-low</uri>
       <pose>0 0 0 0 0 0</pose>
     </include>
 

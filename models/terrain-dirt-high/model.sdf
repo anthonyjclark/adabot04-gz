@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='terrain-dirt'>
+  <model name='terrain-dirt-high'>
 
     <static>true</static>
 
@@ -9,7 +9,7 @@
       <collision name="heightmap-collision">
         <geometry>
           <heightmap>
-            <uri>model://terrain-dirt/terrain-heightmap-dirt.png</uri>
+            <uri>model://terrain-dirt-high/terrain-heightmap-dirt-high.png</uri>
             <size>10 10 0.5</size>
             <pos>0 0 0</pos>
           </heightmap>
@@ -28,7 +28,7 @@
               <size>1</size>
             </texture>
 
-            <uri>model://terrain-dirt/terrain-heightmap-dirt.png</uri>
+            <uri>model://terrain-dirt-high/terrain-heightmap-dirt-high.png</uri>
             <size>10 10 0.5</size>
             <pos>0 0 0</pos>
 

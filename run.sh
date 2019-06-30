@@ -17,7 +17,7 @@ for path in ${GAZEBO_PLUGIN_PATH//:/ }; do
     fi
 done
 
-echo 
+echo
 
 if [[ "$plugins_counter" < 2 ]]; then
     echo "You needo build the plugins"
@@ -28,7 +28,7 @@ fi
 if [[ "$1" == "hm-rgb" ]]; then
     gazebo --pause --verbose worlds/heightmap-rgb.world
 elif [[ "$1" == "hm-dirt" ]]; then
-    gazebo --pause --verbose worlds/heightmap-dirt.world
+    gazebo --pause --verbose worlds/heightmap-dirt-high.world
 else
     gazebo --pause --verbose worlds/empty.world
 fi
