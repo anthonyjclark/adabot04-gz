@@ -27,8 +27,12 @@ fi
 # Run the simulation
 if [[ "$1" == "hm-rgb" ]]; then
     gazebo --pause --verbose worlds/heightmap-rgb.world
-elif [[ "$1" == "hm-dirt" ]]; then
+elif [[ "$1" == "hm-dirt-high" ]]; then
     gazebo --pause --verbose worlds/heightmap-dirt-high.world
+elif [[ "$1" == "hm-dirt-med" ]]; then
+    gazebo --pause --verbose worlds/heightmap-dirt-med.world
+elif [[ "$1" == "hm-dirt-low" ]]; then
+    gazebo --pause --verbose worlds/heightmap-dirt-low.world
 else
     gazebo --pause --verbose worlds/empty.world
 fi

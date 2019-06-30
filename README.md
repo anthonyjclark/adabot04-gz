@@ -47,7 +47,9 @@ Next, to run the a world you can type:
 ~~~bash
 ./run.sh 
 # or ./run.sh hm-rgb
-# or ./run.sh hm-dirt
+# or ./run.sh hm-dirt-high
+# or ./run.sh hm-dirt-med
+# or ./run.sh hm-dirt-low
 ~~~
 
 The `run.sh` script is just a quick wrapper around the following commands:
