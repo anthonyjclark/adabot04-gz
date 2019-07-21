@@ -33,6 +33,12 @@ elif [[ "$1" == "hm-dirt-med" ]]; then
     gazebo --pause --verbose worlds/heightmap-dirt-med.world
 elif [[ "$1" == "hm-dirt-low" ]]; then
     gazebo --pause --verbose worlds/heightmap-dirt-low.world
+elif [[ "$1" == "hm-grass-high" ]]; then
+    gazebo --pause --verbose worlds/heightmap-grass-high.world
+elif [[ "$1" == "hm-grass-med" ]]; then
+    gazebo --pause --verbose worlds/heightmap-grass-med.world
+elif [[ "$1" == "hm-grass-low" ]]; then
+    gazebo --pause --verbose worlds/heightmap-grass-low.world
 else
     gazebo --pause --verbose worlds/empty.world
 fi

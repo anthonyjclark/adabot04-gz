@@ -10,7 +10,7 @@
         <geometry>
           <heightmap>
             <uri>model://terrain-dirt-low/terrain-heightmap-dirt-low.png</uri>
-            <size>10 10 0.5</size>
+            <size>15 15 0.5</size>
             <pos>0 0 0</pos>
           </heightmap>
         </geometry>
@@ -29,7 +29,7 @@
             </texture>
 
             <uri>model://terrain-dirt-low/terrain-heightmap-dirt-low.png</uri>
-            <size>10 10 0.5</size>
+            <size>15 15 0.5</size>
             <pos>0 0 0</pos>
 
           </heightmap>

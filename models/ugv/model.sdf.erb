@@ -18,15 +18,15 @@ camera_offset_x = chassis_length/2 - camera_length
 camera_pitch = Math::PI/6
 camera_eye_offset = camera_width/2
 
-camera_on = "false"
-camera_path_prefix = "/tmp/stereo_camera_"
+camera_on = "true"
+camera_path_prefix = "/tmp/grass/low"
 
 wheel_radius = 0.05
 wheel_offset_z = -0.025
 
 wheel_leg_count = 5
 wheel_leg_radius = 0.005
-wheel_leg_extension = wheel_radius * 0.75
+wheel_leg_extension = wheel_radius * 1.0
 
 def box_inertia(x, y, z, density)
   box = {}
@@ -110,8 +110,8 @@ end
 <sdf version='1.6'>
   <model name='ugv'>
 
-    <!-- <plugin name="controller" filename="libfsm_plugin.so"/> -->
-    <plugin name="controller" filename="libkeyboard_controller.so"/>
+    <plugin name="controller" filename="libfsm_controller.so"/>
+    <!-- <plugin name="controller" filename="libkeyboard_controller.so"/> -->
 
     <link name='<%= chassis_name %>'>
 
@@ -161,7 +161,7 @@ end
 
         <camera name="left">
           <save enabled="<%= camera_on %>">
-            <path><%= camera_path_prefix%>left</path>
+            <path><%= camera_path_prefix%>/left</path>
           </save>
           <horizontal_fov>1.047</horizontal_fov>
           <pose>0 <%= camera_eye_offset %> 0 0 0 0</pose>
@@ -182,7 +182,7 @@ end
 
         <camera name="right">
           <save enabled="<%= camera_on %>">
-            <path><%= camera_path_prefix%>right</path>
+            <path><%= camera_path_prefix%>/right</path>
           </save>
           <horizontal_fov>1.047</horizontal_fov>
           <pose>0 -<%= camera_eye_offset %> 0 0 0 0</pose>

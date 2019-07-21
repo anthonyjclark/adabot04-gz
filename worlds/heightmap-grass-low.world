@@ -11,11 +11,11 @@
 
     <include>
       <uri>model://ugv</uri>
-      <pose>-7 0 1 0 0 0</pose>
+      <pose>-7 -0.8 1 0 0 0</pose>
     </include>
 
     <include>
-      <uri>model://terrain-dirt-med</uri>
+      <uri>model://terrain-grass-low</uri>
       <pose>0 0 0 0 0 0</pose>
     </include>
 

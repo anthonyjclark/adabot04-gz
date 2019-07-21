@@ -7,6 +7,8 @@
 #include <ignition/math/Vector2.hh>
 #include <ignition/math/Helpers.hh>
 
+#include <unordered_map>
+
 
 using ignition::math::Vector3d;
 
@@ -65,7 +67,7 @@ public:
     // Waypoint targets
     double dist = 3.5;
 
-    this->targets.push_back({ dist,     0, 0});
+    this->targets.push_back({ 7,     0, 0});
     this->targets.push_back({    0,  dist, 0});
     this->targets.push_back({ dist,  dist, 0});
     this->targets.push_back({-dist,  dist, 0});
